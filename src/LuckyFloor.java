@@ -4,7 +4,6 @@ public class LuckyFloor {
 
     public static void main(String[] args) {
         System.out.println(getLuckyFloor(1344678));
-
     }
 
     private static int getLuckyFloor(int realFloor) {

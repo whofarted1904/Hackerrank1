@@ -9,10 +9,10 @@ public class DrawingBook {
 //
 //        int pageCountFront = 0;
 //        int pageCountBack = 0;
-//        for (int i = 2; i < p; i = i + 1) {
+//        for (int i = 2; i < p; i = i + 2) {
 //            pageCountFront++;
 //        }
-//        for (int i = n - 1; i < p; i = i - 1) {
+//        for (int i = n - 1; i < p; i = i - 2) {
 //            pageCountBack++;
 //        }
 //
