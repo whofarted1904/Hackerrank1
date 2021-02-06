@@ -1,46 +1,46 @@
-import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
-public class ReverseList {
+public class ReverseDoubleLinkedList {
 
-    static class SinglyLinkedListNode {
+    static class DoublyLinkedListNode {
         public int data;
-        public SinglyLinkedListNode next;
+        public DoublyLinkedListNode next;
+        public DoublyLinkedListNode prev;
 
-        public SinglyLinkedListNode(int nodeData) {
+        public DoublyLinkedListNode(int nodeData) {
             this.data = nodeData;
             this.next = null;
+            this.prev = null;
         }
     }
 
-    static class SinglyLinkedList {
-        public SinglyLinkedListNode head;
-        public SinglyLinkedListNode tail;
+    static class DoublyLinkedList {
+        public DoublyLinkedListNode head;
+        public DoublyLinkedListNode tail;
 
-        public SinglyLinkedList() {
+        public DoublyLinkedList() {
             this.head = null;
             this.tail = null;
         }
 
         public void insertNode(int nodeData) {
-            SinglyLinkedListNode node = new SinglyLinkedListNode(nodeData);
+            DoublyLinkedListNode node = new DoublyLinkedListNode(nodeData);
 
             if (this.head == null) {
                 this.head = node;
             } else {
                 this.tail.next = node;
+                node.prev = this.tail;
             }
 
             this.tail = node;
         }
     }
 
-    public static void printSinglyLinkedList(SinglyLinkedListNode node, String sep, BufferedWriter bufferedWriter) throws IOException {
+    public static void printDoublyLinkedList(DoublyLinkedListNode node, String sep, BufferedWriter bufferedWriter) throws IOException {
         while (node != null) {
             bufferedWriter.write(String.valueOf(node.data));
 
@@ -57,25 +57,17 @@ public class ReverseList {
     /*
      * For your reference:
      *
-     * SinglyLinkedListNode {
+     * DoublyLinkedListNode {
      *     int data;
-     *     SinglyLinkedListNode next;
+     *     DoublyLinkedListNode next;
+     *     DoublyLinkedListNode prev;
      * }
      *
      */
-    static SinglyLinkedListNode reverse(SinglyLinkedListNode head) {
-//        if (head == null || head.next == null) {
-//            return head;
-//        }
-//        SinglyLinkedListNode reversed = reverse(head.next);
-//        head.next.next = head;
-//        head.next = null;
-//        return reversed;
-
-        SinglyLinkedListNode prev = null;
-        SinglyLinkedListNode curr = head;
-        SinglyLinkedListNode next;
-
+    static DoublyLinkedListNode reverse(DoublyLinkedListNode head) {
+        DoublyLinkedListNode prev = null;
+        DoublyLinkedListNode curr = head;
+        DoublyLinkedListNode next;
 
         while (curr != null) {
             next = curr.next;
@@ -93,11 +85,11 @@ public class ReverseList {
     public static void main(String[] args) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-        int tests = scanner.nextInt();
+        int t = scanner.nextInt();
         scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        for (int testsItr = 0; testsItr < tests; testsItr++) {
-            SinglyLinkedList llist = new SinglyLinkedList();
+        for (int tItr = 0; tItr < t; tItr++) {
+            DoublyLinkedList llist = new DoublyLinkedList();
 
             int llistCount = scanner.nextInt();
             scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
@@ -109,9 +101,9 @@ public class ReverseList {
                 llist.insertNode(llistItem);
             }
 
-            SinglyLinkedListNode llist1 = reverse(llist.head);
+            DoublyLinkedListNode llist1 = reverse(llist.head);
 
-            printSinglyLinkedList(llist1, " ", bufferedWriter);
+            printDoublyLinkedList(llist1, " ", bufferedWriter);
             bufferedWriter.newLine();
         }
 

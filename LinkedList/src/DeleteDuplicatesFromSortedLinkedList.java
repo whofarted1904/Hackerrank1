@@ -1,12 +1,9 @@
-import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
-public class ReverseList {
+public class DeleteDuplicatesFromSortedLinkedList {
 
     static class SinglyLinkedListNode {
         public int data;
@@ -52,7 +49,7 @@ public class ReverseList {
         }
     }
 
-    // Complete the reverse function below.
+    // Complete the removeDuplicates function below.
 
     /*
      * For your reference:
@@ -63,29 +60,26 @@ public class ReverseList {
      * }
      *
      */
-    static SinglyLinkedListNode reverse(SinglyLinkedListNode head) {
-//        if (head == null || head.next == null) {
-//            return head;
-//        }
-//        SinglyLinkedListNode reversed = reverse(head.next);
-//        head.next.next = head;
-//        head.next = null;
-//        return reversed;
-
-        SinglyLinkedListNode prev = null;
-        SinglyLinkedListNode curr = head;
-        SinglyLinkedListNode next;
-
-
-        while (curr != null) {
-            next = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = next;
+    static SinglyLinkedListNode removeDuplicates(SinglyLinkedListNode head) {
+        if (head == null || head.next == null) {
+            return head;
         }
-        head = prev;
-        return head;
+//        SinglyLinkedListNode current = head;
+//        SinglyLinkedListNode next = head.next;
+        while (head.next !=null && head.data == head.next.data){
+            head = head.next;
+        }
+        head.next = removeDuplicates(head.next);
 
+//        while (next != null) {
+//            if (next.data == current.data) {
+//                current.next = next.next;
+//            } else {
+//                current = next;
+//            }
+//            next = next.next;
+//        }
+        return head;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
@@ -93,10 +87,10 @@ public class ReverseList {
     public static void main(String[] args) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-        int tests = scanner.nextInt();
+        int t = scanner.nextInt();
         scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        for (int testsItr = 0; testsItr < tests; testsItr++) {
+        for (int tItr = 0; tItr < t; tItr++) {
             SinglyLinkedList llist = new SinglyLinkedList();
 
             int llistCount = scanner.nextInt();
@@ -109,7 +103,7 @@ public class ReverseList {
                 llist.insertNode(llistItem);
             }
 
-            SinglyLinkedListNode llist1 = reverse(llist.head);
+            SinglyLinkedListNode llist1 = removeDuplicates(llist.head);
 
             printSinglyLinkedList(llist1, " ", bufferedWriter);
             bufferedWriter.newLine();

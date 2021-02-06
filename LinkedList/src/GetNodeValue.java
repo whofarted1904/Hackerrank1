@@ -1,12 +1,9 @@
-import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
-public class ReverseList {
+public class GetNodeValue {
 
     static class SinglyLinkedListNode {
         public int data;
@@ -52,7 +49,7 @@ public class ReverseList {
         }
     }
 
-    // Complete the reverse function below.
+    // Complete the getNode function below.
 
     /*
      * For your reference:
@@ -63,28 +60,22 @@ public class ReverseList {
      * }
      *
      */
-    static SinglyLinkedListNode reverse(SinglyLinkedListNode head) {
-//        if (head == null || head.next == null) {
-//            return head;
-//        }
-//        SinglyLinkedListNode reversed = reverse(head.next);
-//        head.next.next = head;
-//        head.next = null;
-//        return reversed;
+    static int getNode(SinglyLinkedListNode head, int positionFromTail) {
 
-        SinglyLinkedListNode prev = null;
-        SinglyLinkedListNode curr = head;
-        SinglyLinkedListNode next;
-
-
-        while (curr != null) {
-            next = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = next;
+        if (head == null) {
+            return head.data;
         }
-        head = prev;
-        return head;
+        int index = 0;
+        SinglyLinkedListNode current = head;
+        SinglyLinkedListNode resultNode = head;
+        while (current != null) {
+            current = current.next;
+            if (index++ > positionFromTail) {
+                resultNode = resultNode.next;
+            }
+        }
+        return resultNode.data;
+
 
     }
 
@@ -109,9 +100,12 @@ public class ReverseList {
                 llist.insertNode(llistItem);
             }
 
-            SinglyLinkedListNode llist1 = reverse(llist.head);
+            int position = scanner.nextInt();
+            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-            printSinglyLinkedList(llist1, " ", bufferedWriter);
+            int result = getNode(llist.head, position);
+
+            bufferedWriter.write(String.valueOf(result));
             bufferedWriter.newLine();
         }
 
